@@ -71,7 +71,6 @@ for socket in sockets:
                  XN=QgsPoint(nLine.vertexAt(lastpointindexN))
 
                  #create line2
-             #shiftY = (cable["NumTo"] - 1)*0.00001
              shiftY=prevFiberCount*0.000001
              line2_start = QgsPoint(XN.x()-shiftX*1.5,XN.y()-shiftY)
              line2_end = QgsPoint(XN.x()-shiftX,XN.y()-shiftY)
@@ -100,7 +99,6 @@ for socket in sockets:
                  layer_to.editBuffer().changeGeometry( feature.id(), nLine );
              prevFiberCount=prevFiberCount+cable["FiberCount"]+1
      
-    #cur.execute('SELECT * FROM "bgCable" where "idSocketFrom" = %s'%str(socket["idSocket"]))
     cur.execute('SELECT "bgCable"."idCable",  "bgCable"."NumFrom", "bgCable"."NumTo", COUNT("idFiber") as "FiberCount", "HasInverseGeometry" \
                         FROM "bgCable" \
                         INNER JOIN "bgGroup" on "bgGroup"."idCable"="bgCable"."idCable"\
@@ -126,7 +124,6 @@ for socket in sockets:
 
                  #create line4
              shiftY=prevFiberCount*0.000001    
-             #shiftY = (cable["NumTo"] - 1)*0.00001
              line2_start = QgsPoint(XN.x()+shiftX*0.5,XN.y()-shiftY)
              line2_end = QgsPoint(XN.x()+shiftX,XN.y()-shiftY)
              line2 = QgsGeometry.fromPolyline([line2_start,line2_end])
